@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Task</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="auth-card">
+    <h2>Add New Task</h2>
+    <form id="taskForm">
+      <input type="text" name="title" placeholder="Task Title" required>
+      <input type="text" name="description" placeholder="Task Description" required>
+      <button type="submit">Add Task</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('taskForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const token = localStorage.getItem('token');
+      const data = {
+        title: e.target.title.value,
+        description: e.target.description.value
+      };
+
+      const res = await fetch('http://localhost:5000/api/tasks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (res.ok) {
+        alert('Task added!');
+        window.location.href = 'view-tasks.html';
+      } else {
+        alert('Failed to add task.');
+      }
+    });
+  </script>
+</body>
+</html>

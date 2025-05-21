@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Save token if backend sends it
         localStorage.setItem("token", result.token);
         // Redirect or do something
+        window.location.href = "dashboard.html";
       }
     });
   }
